@@ -1,101 +1,144 @@
-// العمليات الحاسوبية الأساسية
-let currentInput = "";
+let currentInput = "0";
+let previousInput = "";
+let operation = null;
 
-// تحديث شاشة العرض
-function updateDisplay() {
-    document.getElementById("display").textContent = currentInput || "0";
-}
-
-// إضافة الأرقام
 function appendNumber(number) {
-    currentInput += number;
-    updateDisplay();
-}
-
-// اختيار العمليات الحسابية
-function chooseOperation(operator) {
-    currentInput += ` ${operator} `;
-    updateDisplay();
-}
-
-// مسح شاشة العرض
-function clearDisplay() {
-    currentInput = "";
-    updateDisplay();
-}
-
-// حذف الرقم الأخير
-function deleteNumber() {
-    currentInput = currentInput.slice(0, -1);
-    updateDisplay();
-}
-
-// عملية الحساب
-function calculate() {
-    try {
-        // استخدام eval لتقييم المعادلة الحسابية
-        currentInput = eval(currentInput).toString();
-        updateDisplay();
-    } catch (e) {
-        currentInput = "خطأ";
-        updateDisplay();
+    if (currentInput === "0" || currentInput === "خطأ") {
+        currentInput = number;
+    } else {
+        currentInput += number;
     }
+    updateDisplay();
 }
 
-// إضافة دوال رياضية علمية
+function chooseOperation(op) {
+    if (operation !== null) {
+        calculate();
+    }
+    previousInput = currentInput;
+    currentInput = "0";
+    operation = op;
+}
+
 function appendFunction(func) {
-    currentInput += `${func}(`;
+    currentInput = func + "(" + currentInput + ")";
     updateDisplay();
 }
 
-// المساعد الذكي (محاكاة بسيطة للرد على الأسئلة)
-function sendMessage() {
-    const chatInput = document.getElementById('chatInput').value;
-    const chatContainer = document.getElementById('chatContainer');
+function calculate() {
+    let result;
+    let prev = parseFloat(previousInput);
+    let current = parseFloat(currentInput);
 
-    if (chatInput) {
-        const userMessage = document.createElement('div');
-        userMessage.classList.add('user-message');
-        userMessage.textContent = `أنت: ${chatInput}`;
-        chatContainer.appendChild(userMessage);
-
-        // محاكاة ردود المساعد الذكي
-        const botMessage = document.createElement('div');
-        botMessage.classList.add('bot-message');
-        if (chatInput.includes('ما هو') || chatInput.includes('من هو')) {
-            botMessage.textContent = "المساعد الذكي هنا للمساعدة. كيف يمكنني مساعدتك؟";
-        } else if (chatInput.includes('حاسبة')) {
-            botMessage.textContent = "هذه حاسبة علمية. يمكنك استخدام العمليات الحسابية المتقدمة.";
-        } else {
-            botMessage.textContent = "أنا آسف، لم أفهم السؤال.";
-        }
-        chatContainer.appendChild(botMessage);
-
-        // مسح المدخل بعد إرسال الرسالة
-        document.getElementById('chatInput').value = "";
-        chatContainer.scrollTop = chatContainer.scrollHeight;
+    switch (operation) {
+        case "+":
+            result = prev + current;
+            break;
+        case "-":
+            result = prev - current;
+            break;
+        case "*":
+            result = prev * current;
+            break;
+        case "/":
+            if (current === 0) {
+                result = "خطأ";
+            } else {
+                result = prev / current;
+            }
+            break;
+        case "^":
+            result = Math.pow(prev, current); // الأس
+            break;
+        case "√":
+            result = Math.sqrt(current);  // الجذر التربيعي
+            break;
+        case "∛":
+            result = Math.cbrt(current);  // الجذر التكعيبي
+            break;
+        case "sin":
+            result = Math.sin(current);  // دالة الجيب
+            break;
+        case "cos":
+            result = Math.cos(current);  // دالة الجيب التمام
+            break;
+        case "tan":
+            result = Math.tan(current);  // دالة الظل
+            break;
+        case "log":
+            result = Math.log10(current);  // اللوغاريتم العشري
+            break;
+        case "ln":
+            result = Math.log(current);  // اللوغاريتم الطبيعي
+            break;
+        case "asin":
+            result = Math.asin(current);  // دالة الجيب العكسي
+            break;
+        case "acos":
+            result = Math.acos(current);  // دالة الجيب التمام العكسي
+            break;
+        case "atan":
+            result = Math.atan(current);  // دالة الظل العكسي
+            break;
+        case "π":
+            result = Math.PI;  // قيمة باي
+            break;
+        case "e":
+            result = Math.E;  // قيمة ثابت رياضي "e"
+            break;
+        case "|x|":
+            result = Math.abs(current);  // القيمة المطلقة
+            break;
+        default:
+            result = "خطأ";
     }
+    currentInput = result.toString();
+    updateDisplay();
+    operation = null;
 }
 
-// تحسين ظهور الرسائل المرسلة
-const styles = document.createElement('style');
-styles.innerHTML = `
-    .user-message {
-        text-align: left;
-        margin: 10px 0;
-        background: #4CAF50;
-        color: white;
-        padding: 10px;
-        border-radius: 5px;
+function clearDisplay() {
+    currentInput = "0";
+    previousInput = "";
+    operation = null;
+    updateDisplay();
+}
+
+function deleteNumber() {
+    if (currentInput.length === 1) {
+        currentInput = "0";
+    } else {
+        currentInput = currentInput.slice(0, -1);
+    }
+    updateDisplay();
+}
+
+function updateDisplay() {
+    document.getElementById("display").innerText = currentInput;
+}
+
+// دالة للمساعد الذكي
+function sendMessage() {
+    let input = document.getElementById("chatInput").value;
+    let chatContainer = document.getElementById("chatContainer");
+
+    let userMessage = document.createElement("div");
+    userMessage.classList.add("user-message");
+    userMessage.innerText = input;
+    chatContainer.appendChild(userMessage);
+
+    // هنا يمكننا إضافة بعض الاستجابات المبدئية للمساعد الذكي
+    let botMessage = document.createElement("div");
+    botMessage.classList.add("bot-message");
+
+    if (input.toLowerCase().includes("مرحبا")) {
+        botMessage.innerText = "مرحباً! كيف يمكنني مساعدتك؟";
+    } else if (input.toLowerCase().includes("حساب")) {
+        botMessage.innerText = "من فضلك أدخل العملية الحسابية.";
+    } else {
+        botMessage.innerText = "عذراً، لم أفهم سؤالك.";
     }
 
-    .bot-message {
-        text-align: right;
-        margin: 10px 0;
-        background: #f0f0f0;
-        color: #333;
-        padding: 10px;
-        border-radius: 5px;
-    }
-`;
-document.head.appendChild(styles);
+    chatContainer.appendChild(botMessage);
+    document.getElementById("chatInput").value = "";
+}
