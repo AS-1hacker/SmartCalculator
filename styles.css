@@ -1,0 +1,17 @@
+
+/* Styling for the calculator and assistant */
+:root {
+    --primary-color: #2c3e50;
+    --secondary-color: #34495e;
+    --accent-color: #3498db;
+    --text-color: #ecf0f1;
+}
+body {
+    background: linear-gradient(135deg, #1a1a2e, #16213e);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: 'Cairo', Arial, sans-serif;
+    direction: rtl;
+}
+/* Additional styles omitted for brevity */
