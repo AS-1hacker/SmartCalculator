@@ -1,119 +1,110 @@
-/* تنسيق صفحة الحاسبة بشكل عام */
+/* تصميم الأساسيات */
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Arial', sans-serif;
+    background-color: #f0f0f0;
     margin: 0;
     padding: 0;
-    background-color: #f4f4f9;
-    color: #333;
+    direction: rtl;
 }
 
 .navbar {
-    background-color: #333;
-    color: white;
-    padding: 15px 0;
+    background-color: #4CAF50;
+    padding: 10px;
     text-align: center;
+    color: white;
 }
 
-.navbar .navbar-brand {
-    font-size: 1.5em;
-    margin-bottom: 10px;
+.navbar-brand {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.nav-links {
+    margin-top: 10px;
 }
 
 .nav-links a {
     color: white;
+    margin: 0 15px;
     text-decoration: none;
-    margin: 0 20px;
-    font-size: 1.1em;
 }
 
 .nav-links a:hover {
     text-decoration: underline;
 }
 
-/* تصميم الحاسبة */
+/* الحاسبة */
 .calculator-container {
     display: flex;
-    justify-content: space-between;
-    padding: 20px;
+    justify-content: center;
+    margin-top: 20px;
 }
 
 .calculator {
-    background: #fff;
-    padding: 20px;
+    background-color: #fff;
     border-radius: 10px;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-    width: 60%;
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 .display {
-    font-size: 2.5em;
-    background-color: #333;
+    background-color: #222;
     color: white;
     padding: 20px;
-    border-radius: 10px;
+    font-size: 32px;
     text-align: right;
-    height: 80px;
-    margin-bottom: 10px;
+    border-radius: 10px;
+    margin-bottom: 20px;
 }
 
 .buttons-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(5, 1fr);
     gap: 10px;
 }
 
 .button {
     background-color: #4CAF50;
     color: white;
-    font-size: 1.5em;
-    border: none;
+    font-size: 20px;
     padding: 20px;
+    border: none;
     border-radius: 10px;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: background-color 0.3s;
 }
 
 .button:hover {
     background-color: #45a049;
 }
 
-.sidebar {
-    width: 35%;
+/* قسم المساعد الذكي */
+.features-section {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 40px;
+}
+
+.feature-card {
+    background-color: #fff;
     padding: 20px;
-    background: #fff;
     border-radius: 10px;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 200px;
 }
 
-.ai-assistant {
-    background: #f9f9f9;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+.feature-card i {
+    font-size: 50px;
+    margin-bottom: 10px;
 }
 
-.chat-container {
-    max-height: 400px;
-    overflow-y: auto;
-    padding: 10px;
-    background: #fff;
-    border-radius: 10px;
-    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1);
+.feature-card h3 {
+    font-size: 20px;
+    margin-bottom: 10px;
 }
 
-.chat-input input {
-    width: 80%;
-    padding: 10px;
-    margin-right: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
-
-.chat-input button {
-    padding: 10px 20px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+.feature-card p {
+    font-size: 14px;
+    color: #555;
 }
